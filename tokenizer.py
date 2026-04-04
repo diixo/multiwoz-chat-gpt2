@@ -41,10 +41,9 @@ class GPT2Tokenizer:
 
     def __call__(self, *args, **kwargs):
         return self.tokenizer(*args, **kwargs)
+    
 
-
-if __name__ == "__main__":
-
+def test():
     tokenizer = GPT2Tokenizer()
     print(tokenizer.tokenize("Hello, how are you?"))
     print(tokenizer.encode("Hello, how are you?"))
@@ -55,3 +54,8 @@ if __name__ == "__main__":
     print(tokenizer.sep_token, tokenizer.sep_token_id)
     print(tokenizer.pad_token, tokenizer.pad_token_id)
     print(tokenizer.vocab_size)
+
+
+if __name__ == "__main__":
+    test()
+
