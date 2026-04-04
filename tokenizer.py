@@ -46,11 +46,11 @@ class GPT2Tokenizer:
 if __name__ == "__main__":
 
     tokenizer = GPT2Tokenizer()
-    # print(tokenizer.tokenize("Hello, how are you?"))
-    # print(tokenizer.encode("Hello, how are you?"))
-    # print(tokenizer.decode(tokenizer.encode("Hello, how are you?")))
-    print(tokenizer.bos_token, tokenizer.bos_token_id)
+    print(tokenizer.tokenize("Hello, how are you?"))
+    print(tokenizer.encode("Hello, how are you?"))
+    print(tokenizer.decode(tokenizer.encode("Hello, how are you?")))
     print(tokenizer.eos_token, tokenizer.eos_token_id)
+    print(tokenizer.bos_token, tokenizer.bos_token_id)
     print(tokenizer.cls_token, tokenizer.cls_token_id)
     print(tokenizer.sep_token, tokenizer.sep_token_id)
     print(tokenizer.pad_token, tokenizer.pad_token_id)
