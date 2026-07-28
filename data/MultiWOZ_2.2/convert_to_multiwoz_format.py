@@ -65,11 +65,13 @@ def format_states(groundtruth_states, states_to_correct):
 
 def main(argv):
   data_path = os.path.join(FLAGS.multiwoz21_data_dir, "data.json")
+
   with open(data_path, "r") as f:
     multiwoz_data = json.load(f)
   file_pattern = os.path.join(_DIR_PATH, "*/dialogues_*.json")
   files = glob.glob(file_pattern)
   clean_data = {}
+
   for file_name in files:
     with open(file_name, "r") as f:
       dialogues = json.load(f)
@@ -77,9 +79,11 @@ def main(argv):
         clean_data[dialogue["dialogue_id"]] = dialogue
   # Load action file.
   action_file = os.path.join(_DIR_PATH, "dialog_acts.json")
+
   with open(action_file, "r") as f:
     action_data = json.load(f)
   dialogue_ids = list(multiwoz_data.keys())
+
   for dialogue_id in dialogue_ids:
     dialogue = multiwoz_data[dialogue_id]["log"]
     if dialogue_id not in clean_data:
@@ -87,6 +91,7 @@ def main(argv):
       del multiwoz_data[dialogue_id]
       continue
     clean_dialogue = clean_data[dialogue_id]
+
     for i, turn in enumerate(dialogue):
       # Update the utterance.
       turn["text"] = clean_dialogue["turns"][i]["utterance"]
@@ -101,11 +106,15 @@ def main(argv):
       if i % 2 == 0:
         continue
       clean_states = {}
+
       for frame in clean_dialogue["turns"][i - 1]["frames"]:
         clean_states.update(frame["state"]["slot_values"])
+
       format_states(clean_states, turn["metadata"])
+
   with open(FLAGS.output_file, "w") as f:
     json.dump(multiwoz_data, f, indent=2, separators=(",", ": "), sort_keys=True)
+
   logging.info("Finish writing %d dialogues", len(multiwoz_data))
 
 
